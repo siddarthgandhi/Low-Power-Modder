@@ -11,8 +11,8 @@
 
   if (enabled == YES){
     _CDBatterySaver *saver = [_CDBatterySaver batterySaver];
-    SBUIController *getBat = [%c(SBUIController) sharedInstance];
-    int batteryLvl = [getBat batteryCapacityAsPercentage];
+    SBUIController *batInfo = [%c(SBUIController) sharedInstance];
+    int batteryLvl = [batInfo batteryCapacityAsPercentage];
 
     int userValue = [[prefs objectForKey:@"percent"] integerValue];
     int disableValue = [[prefs objectForKey:@"disablePercent"] integerValue];
@@ -20,14 +20,12 @@
 
     if ([[%c(SBUIController) sharedInstance] isOnAC]) {
       if (disableCharge == YES) {
-        if (batteryLvl >= disableValue) {
+        if (batteryLvl == disableValue) {
           [saver setMode:0];
-        } else {
-          [saver setMode:1];
         }
       }
     } else {
-      if (batteryLvl <= userValue) {
+      if (batteryLvl == userValue) {
         [saver setMode:1];
       }
     }
