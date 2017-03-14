@@ -4,7 +4,7 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = LPM
 LPM_FILES = Tweak.xm
-LPM_PRIVATE_FRAMEWORKS = CoreDuet
+LPM_PRIVATE_FRAMEWORKS = CoreDuet, ManagedConfiguration
 LPM_EXTRA_FRAMEWORKS += Cephei
 
 include $(THEOS_MAKE_PATH)/tweak.mk

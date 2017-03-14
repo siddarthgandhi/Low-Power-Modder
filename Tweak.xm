@@ -1,15 +1,4 @@
-#import <Foundation/Foundation.h>
-
-@interface _CDBatterySaver : NSObject
-+ (id)batterySaver;
-- (int)getPowerMode;
-- (int)setMode:(int)arg1;
-@end
-
-@interface SBUIController : NSObject
-+(SBUIController *)sharedInstance;
--(BOOL)isOnAC;
-@end
+#import "Modder.h"
 
 %hook SBUIController
 
@@ -22,23 +11,23 @@
 
   if (enabled == YES){
     _CDBatterySaver *saver = [_CDBatterySaver batterySaver];
-    UIDevice *device = [UIDevice currentDevice];
-    float batteryLvl = [device batteryLevel];
+    SBUIController *getBat = [%c(SBUIController) sharedInstance];
+    int batteryLvl = [getBat batteryCapacityAsPercentage];
 
-    float userValue = [[prefs objectForKey:@"percent"] floatValue];
-    float disableValue = [[prefs objectForKey:@"disablePercent"] floatValue];
+    int userValue = [[prefs objectForKey:@"percent"] integerValue];
+    int disableValue = [[prefs objectForKey:@"disablePercent"] integerValue];
     BOOL disableCharge = [prefs objectForKey:@"disableCharge"] ? [[prefs objectForKey:@"disableCharge"] boolValue] : YES;
 
     if ([[%c(SBUIController) sharedInstance] isOnAC]) {
       if (disableCharge == YES) {
-        if (batteryLvl >= disableValue/100.0f) {
+        if (batteryLvl >= disableValue) {
           [saver setMode:0];
         } else {
           [saver setMode:1];
         }
       }
     } else {
-      if (batteryLvl <= userValue/100.0f) {
+      if (batteryLvl <= userValue) {
         [saver setMode:1];
       }
     }
