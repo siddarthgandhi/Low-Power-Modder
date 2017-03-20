@@ -1,4 +1,4 @@
-SDKVERSION = 10.1
+TARGET = iphone:clang:latest:9.0
 SYSROOT = $(THEOS)/sdks/iPhoneOS10.1.sdk
 include $(THEOS)/makefiles/common.mk
 

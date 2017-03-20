@@ -1,9 +1,9 @@
 Package: es.iflam.lpm
 Name: Low Power Modder
 Depends: mobilesubstrate, ws.hbang.common
-Version: 1.1
+Version: 1.3
 Architecture: iphoneos-arm
-Description: Set a custom battery percentage to turn on Low Power Mode.
+Description: Set a custom battery percentage to turn on/off Low Power Mode.
 Maintainer: iFlames
 Author: iFlames
 Section: Tweaks
